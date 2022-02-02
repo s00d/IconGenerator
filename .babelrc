@@ -1,8 +1,21 @@
 {
   "plugins": [
-    "transform-react-jsx-source"
+    ["@babel/plugin-transform-runtime",
+      {
+        "regenerator": true
+      }
+    ],
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-export-default-from",
+    "react-hot-loader/babel"
   ],
-  "presets": ["env", "react"],
+  "presets": [
+    ["@babel/preset-env", {
+      "useBuiltIns": "entry",
+      "corejs": "3.21.0"
+    }],
+    "@babel/preset-react"
+  ],
   "ignore": [
     "**/afterSignHook.js"
   ]

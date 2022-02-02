@@ -11,12 +11,13 @@ process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 function createWindow () {
   win = new BrowserWindow({
     title: 'Icon Generator',
-    width: 600, 
+    width: 600,
     height: 500,
     resizable: false,
     icon: __dirname + '/Icon/Icon.icns',
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false,
     }
   })
 
@@ -25,6 +26,8 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   }))
+
+  win.webContents.openDevTools({ })
 
   win.on('closed', () => {
     win = null

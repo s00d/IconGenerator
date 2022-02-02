@@ -1,15 +1,17 @@
 {
   "name": "icon_generator",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "A macOS app to generate app icons",
   "main": "babel/main.js",
   "repository": "https://github.com/onmyway133/IconGenerator",
-  "author": "Khoa Pham",
+  "author": "s00d <Virus191288@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "npm run babel && electron .",
-    "babel": "babel ./src --out-dir ./babel --copy-files",
-    "dist": "npm run babel && electron-builder"
+    "babel": "npx babel ./src --out-dir ./babel --copy-files",
+    "postinstall": "electron-builder install-app-deps",
+    "dist": "npm run babel && electron-builder",
+    "publish": "npm run babel && electron-builder -mlw -p always"
   },
   "build": {
     "appId": "com.onmyway133.IconGenerator",
@@ -20,42 +22,48 @@
       "category": "public.app-category.productivity",
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
+      "target": "dmg",
       "entitlements": "./entitlements.plist",
-      "entitlementsInherit": "./entitlements.plist"
+      "entitlementsInherit": "./entitlements.plist",
+      "identity": null
     },
     "win": {
-      "target": "msi"
+      "target": "nsis",
+      "verifyUpdateCodeSignature": false
     },
     "linux": {
       "target": [
         "AppImage",
         "deb"
       ]
-    },
-    "afterSign": "./afterSignHook.js"
+    }
   },
   "dependencies": {
-    "@babel/plugin-transform-runtime": "^7.6.2",
     "@material-ui/core": "^4.4.2",
-    "babel-polyfill": "^6.26.0",
-    "image-size": "^0.6.1",
+    "core-js": "3.21.0",
+    "image-size": "^1.0.1",
     "material-ui": "^0.20.2",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "rimraf": "^2.7.1",
-    "sharp": "^0.23.0"
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "rimraf": "^3.0.2",
+    "sharp": "^0.28.3"
   },
   "devDependencies": {
-    "babel": "^6.23.0",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "electron": "^5.0.10",
-    "electron-builder": "^21.2.0",
-    "electron-packager": "^14.0.6",
-    "electron-rebuild": "^1.8.6"
+    "@babel/cli": "^7.16.8",
+    "@babel/core": "^7.16.12",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-proposal-export-default-from": "^7.16.7",
+    "@babel/plugin-proposal-numeric-separator": "^7.16.7",
+    "@babel/plugin-transform-runtime": "^7.16.10",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.3",
+    "electron": "^16.0.8",
+    "electron-builder": "^22.14.5",
+    "electron-packager": "^15.4.0",
+    "electron-rebuild": "^3.2.7",
+    "jsonfile": "^6.1.0",
+    "react-hot-loader": "^4.13.0",
+    "regjsparser": "^0.8.3"
   }
 }
